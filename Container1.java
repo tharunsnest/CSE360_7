@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-@SuppressWarnings({ "serial", "unused" })
 public class Container1 extends JPanel
 {
 
@@ -208,7 +207,7 @@ public class Container1 extends JPanel
 				else
 				{
 
-					String[] lineOfWords = line.split(" +");
+					String[] lineOfWords = line.split("\\s+");
 
 					for (int i = 0; i < lineOfWords.length; i++)
 					{
