@@ -21,7 +21,7 @@ git commit -m "message"
 
 git push
 
-if "git add ." shows the files are not in sync with the repository
+# if "git add ." shows the files are not in sync with the repository
 
 git add .
 
