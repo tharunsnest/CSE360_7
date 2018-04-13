@@ -16,12 +16,17 @@ git pull
 # To commit files to the repository:
 
 git add .
+
 git commit -m "message"
+
 git push
 
 if "git add ." shows the files are not in sync with the repository
 
 git add .
+
 git commit -m "message"
+
 git pull
+
 git push
