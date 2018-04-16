@@ -146,7 +146,7 @@ public class Container1 extends JPanel
 						
 					}
 					
-					else 
+					else if(fullJustify.isSelected())
 					{
 						String[] lines = formattedOutput.split("\n");
 						formattedOutput = "";
