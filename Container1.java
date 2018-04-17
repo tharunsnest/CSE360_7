@@ -97,12 +97,12 @@ public class Container1 extends JPanel
 		
 		JLabel label3 = new JLabel("Justify: ");
 		JRadioButton leftJustify = new JRadioButton("Left");
-		JRadioButton rightJustify = new JRadioButton("Right");
 		JRadioButton fullJustify = new JRadioButton("Full");
+		JRadioButton rightJustify = new JRadioButton("Right");
 		ButtonGroup bG = new ButtonGroup();
 		bG.add(leftJustify);
-		bG.add(rightJustify);
 		bG.add(fullJustify);
+		bG.add(rightJustify);
 		
 		justify.add(label3);
 		justify.add(leftJustify);
@@ -127,21 +127,30 @@ public class Container1 extends JPanel
 				try
 				{
 					// @SuppressWarnings("resource")
-					if (rightJustify.isSelected())
+					if (!leftJustify.isSelected())
 					{
 						// System.out.println("Is this running?");
 						String[] lines = formattedOutput.split("\n");
-						formattedOutput = "";
-						for (int i = 0; i < lines.length; i++)
-						{
-							String holder = lines[i];
-							String modified = "";
-							for (int j = lines[i].length(); j <= lineLength; j++)
+						
+						if (fullJustify.isSelected()) {
+							formattedOutput = "";
+							for (int i = 0; i < lines.length(); i++)
 							{
-								modified += " ";
+								int whiteSpaceToAdd = lineLength - lines[i].length();
+								String[] words = lines[i].split(' ');
+								int whiteSpaceAdded = 0;
+								for (int j = 0; j < words.length; j++)
+								{
+									formattedOutput += words[j] + ' ';
+									if (whiteSpaceAdded < whiteSpaceToAdd)
+									{
+											formattedOutput += ' ';
+											whiteSpaceAdded++;
+									}
+								}
 							}
-							modified += holder + "\n";
-							formattedOutput += modified;
+							
+							
 						}
 						
 					}
@@ -154,7 +163,7 @@ public class Container1 extends JPanel
 						{
 							
 						}
-					}
+						
 					
 					PrintWriter out = new PrintWriter(outputFile);
 					/* String */ newFormattedOutput = formattedOutput.replaceAll("\n", System.lineSeparator());
@@ -244,41 +253,39 @@ public class Container1 extends JPanel
 			int chars = 0;
 			String holder = "";
 			
-			if (!fullJust)
+			// iterate through words
+			for (int i = 0; i < words.size(); i++)
 			{
-				
-				// iterate through words
-				for (int i = 0; i < words.size(); i++)
-				{
 					
-					if (chars == 0 && words.get(i).length() > lineLength)
-					{
-						formattedOutput += words.get(i) + "\n";
-					} else
-					{
+				if (chars == 0 && words.get(i).length() > lineLength)
+				{
+					formattedOutput += words.get(i) + "\n";
+				} else
+				{
 						
+					if (!fullJust) {
 						chars += words.get(i).length();
 						
-						if (chars > lineLength)
-						{
+					if (chars > lineLength)
+					{
 							
-							chars -= words.get(i).length();
-							holder = holder.substring(0, holder.length() - 1);
-							holder += "\n";
+						chars -= words.get(i).length();
+						holder = holder.substring(0, holder.length() - 1);
+						holder += "\n";
 							
-							formattedOutput += holder;
+						formattedOutput += holder;
 							
-							holder = "";
-							chars = 0;
-							i--;
-						} else if (chars <= lineLength)
-						{
-							holder += words.get(i) + " ";
-							chars += 1;
-						}
+						holder = "";
+						chars = 0;
+						i--;
+					} else if (chars <= lineLength)
+					{
+						holder += words.get(i) + " ";
+						chars += 1;
 					}
 				}
 			}
+			
 			formattedOutput += holder + "\n";
 		} catch (FileNotFoundException ex)
 		{
