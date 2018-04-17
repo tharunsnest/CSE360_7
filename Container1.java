@@ -127,44 +127,53 @@ public class Container1 extends JPanel
 				try
 				{
 					// @SuppressWarnings("resource")
-					if (!leftJustify.isSelected())
+					if (!(leftJustify.isSelected()))
 					{
 						// System.out.println("Is this running?");
 						String[] lines = formattedOutput.split("\n");
 						
 						if (fullJustify.isSelected()) {
 							formattedOutput = "";
-							for (int i = 0; i < lines.length(); i++)
+							for (int i = 0; i < lines.length; i++)
 							{
 								int whiteSpaceToAdd = lineLength - lines[i].length();
-								String[] words = lines[i].split(' ');
+								String[] words = lines[i].split(" ");
 								int whiteSpaceAdded = 0;
 								for (int j = 0; j < words.length; j++)
 								{
-									formattedOutput += words[j] + ' ';
+									formattedOutput += words[j] + " ";
 									if (whiteSpaceAdded < whiteSpaceToAdd)
 									{
-											formattedOutput += ' ';
+											formattedOutput += " ";
 											whiteSpaceAdded++;
 									}
 								}
+								formattedOutput += "\n";
 							}
 							
 							
 						}
 						
-					}
-					
-					else if(fullJustify.isSelected())
-					{
-						String[] lines = formattedOutput.split("\n");
-						formattedOutput = "";
-						for (int i = 0; i < lines.length; i++)
-						{
-							
+						
+						
+						
+						if (rightJustify.isSelected()) {
+							formattedOutput = "";
+							for (int i = 0; i < lines.length; i++)
+							{
+								String holder = lines[i];
+								String modified = "";
+								for (int j = lines[i].length(); j <= lineLength; j++)
+								{
+									modified += " ";
+								}
+								modified += holder + "\n";
+								formattedOutput += modified;
+							}
+						
 						}
 						
-					
+					}
 					PrintWriter out = new PrintWriter(outputFile);
 					/* String */ newFormattedOutput = formattedOutput.replaceAll("\n", System.lineSeparator());
 					out.write(newFormattedOutput);
@@ -235,7 +244,7 @@ public class Container1 extends JPanel
 				else
 				{
 					
-					String[] lineOfWords = line.split(" +");
+					String[] lineOfWords = line.split("\\s+");
 					
 					for (int i = 0; i < lineOfWords.length; i++)
 					{
@@ -287,7 +296,9 @@ public class Container1 extends JPanel
 			}
 			
 			formattedOutput += holder + "\n";
-		} catch (FileNotFoundException ex)
+			}
+		}
+		catch (FileNotFoundException ex)
 		{
 			System.out.println("Unable to open file.");
 		}
