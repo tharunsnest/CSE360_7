@@ -14,6 +14,20 @@ import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+/*
+ * Updates:
+ *  -fixed left/right justify (was broken after fullJustify implementation)
+ *  -Full justify works closer to how it should
+ *  
+ * Issues and things to add:
+ *  -remove the output preview page and go straight to analysis page
+ *  -add the new lines to the analysis page
+ *  -full justify works for some cases, but in situations where more than one space needs to be added between words it fails
+ *  -add double spacing option
+ *  -add line length option
+ */
+
+
 @SuppressWarnings({ "serial", "unused", "hiding" })
 public class Container1 extends JPanel
 {
@@ -132,7 +146,8 @@ public class Container1 extends JPanel
 						// System.out.println("Is this running?");
 						String[] lines = formattedOutput.split("\n");
 						
-						if (fullJustify.isSelected()) {
+						if (fullJustify.isSelected()) 
+						{
 							formattedOutput = "";
 							for (int i = 0; i < lines.length; i++)
 							{
@@ -157,13 +172,14 @@ public class Container1 extends JPanel
 						
 						
 						
-						if (rightJustify.isSelected()) {
+						if (rightJustify.isSelected()) 
+						{
 							formattedOutput = "";
 							for (int i = 0; i < lines.length; i++)
 							{
 								String holder = lines[i];
 								String modified = "";
-								for (int j = lines[i].length(); j <= lineLength; j++)
+								for (int j = lines[i].length(); j < lineLength; j++)
 								{
 									modified += " ";
 								}
@@ -269,12 +285,11 @@ public class Container1 extends JPanel
 				if (chars == 0 && words.get(i).length() > lineLength)
 				{
 					formattedOutput += words.get(i) + "\n";
-				} else
+				} 
+				else
 				{
-						
-					if (!fullJust) {
-						chars += words.get(i).length();
-						
+					chars += words.get(i).length();
+					
 					if (chars > lineLength)
 					{
 							
@@ -287,16 +302,17 @@ public class Container1 extends JPanel
 						holder = "";
 						chars = 0;
 						i--;
-					} else if (chars <= lineLength)
+					} 
+					else if (chars <= lineLength)
 					{
 						holder += words.get(i) + " ";
 						chars += 1;
 					}
 				}
-			}
 			
-			formattedOutput += holder + "\n";
+				//formattedOutput += holder + "\n";
 			}
+			formattedOutput += holder + "\n";
 		}
 		catch (FileNotFoundException ex)
 		{
@@ -311,6 +327,7 @@ public class Container1 extends JPanel
 			System.out.println("Error reading file.");
 		}
 		
+		System.out.println(formattedOutput);
 		return formattedOutput;
 		
 	}
