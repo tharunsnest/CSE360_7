@@ -5,11 +5,21 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-
+import java.text.DecimalFormat;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+/*
+ * Notes (A.J. England) 4-18-18 @ 8pm"
+ * 	Updates:
+ * 		 -fixed the linelength calculation to not count newline characters
+ * 		 -linelength now calculates a decimal, not just integer division 
+ * 		 -linelength also prints with only 2 decimals, done with DecimalFormat library
+ * 	Issues and things to fix:
+ * 		 -
+ */
 
 @SuppressWarnings({ "serial", "unused" })
 public class Container3 extends JPanel
@@ -55,14 +65,19 @@ public class Container3 extends JPanel
 
 			wordsPerLine = wordsProcessed / numberOfLines;
 
-			String output2 = output.trim();
-			lineLength = output2.length() / numberOfLines;
-
+			String output2 = output;//.trim();
+			System.out.println(output2.substring(output2.length() - 1));
+			if (output2.substring(output2.length() - 1) == System.lineSeparator())
+				output2 = output2.substring(0, output2.length() - 1);
+			lineLength = ((double)output2.length() - (2 * (numberOfLines - 1))) / numberOfLines;
+			
+			DecimalFormat df = new DecimalFormat(".##"); // df.format(<double>) returns the double with 2 decimal points (as a string)
+			
 			JLabel wordsProcessedLabel = new JLabel("Words Processed: " + wordsProcessed);
 			JLabel numberOfLinesLabel = new JLabel("Number of Lines: " + numberOfLines);
 			JLabel blankLinesRemovedLabel = new JLabel("Blank Lines Removed: " + blankLinesRemoved);
 			JLabel wordsPerLineLabel = new JLabel("Average Words Per Line: " + wordsPerLine);
-			JLabel lineLengthLabel = new JLabel("Average Line Length: " + lineLength + " characters");
+			JLabel lineLengthLabel = new JLabel("Average Line Length: " + df.format(lineLength) + " characters");
 
 			JButton outputB = new JButton("Output");
 			JButton restartB = new JButton("Restart");
