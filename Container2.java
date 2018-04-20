@@ -21,7 +21,7 @@ public class Container2 extends JPanel
 
 	JFrame jframe;
 
-	public Container2(JFrame jframe, String formattedOutput, File inputFile)
+	public Container2(JFrame jframe, String formattedOutput, File inputFile, boolean doubleSpaced)
 	{
 		/*this.jframe = jframe;
 
@@ -50,7 +50,7 @@ public class Container2 extends JPanel
 			public void actionPerformed(ActionEvent e)
 			{*/
 				jframe.getContentPane().removeAll();
-				JPanel container3 = new Container3(formattedOutput, inputFile);
+				JPanel container3 = new Container3(formattedOutput, inputFile, doubleSpaced);
 				jframe.add(container3);
 				jframe.revalidate();
 				jframe.repaint();

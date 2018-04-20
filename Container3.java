@@ -30,7 +30,7 @@ import javax.swing.JPanel;
 @SuppressWarnings({ "serial", "unused" })
 public class Container3 extends JPanel
 {
-	public Container3(String output, File file)
+	public Container3(String output, File file, boolean doubleSpaced)
 	{
 		String line = null;
 		String formattedOutput = "";
@@ -79,6 +79,11 @@ public class Container3 extends JPanel
 			lineLength = ((double)output2.length() - (2 * (numberOfLines - 1))) / numberOfLines;
 			
 			DecimalFormat df = new DecimalFormat(".##"); // df.format(<double>) returns the double with 2 decimal points (as a string)
+			
+			if(doubleSpaced) {
+				numberOfLines = (numberOfLines + 1) / 2;
+				blankLinesAdded = numberOfLines - 1;
+			}
 			
 			JLabel wordsProcessedLabel = new JLabel("Words Processed: " + wordsProcessed);
 			JLabel numberOfLinesLabel = new JLabel("Number of Lines: " + numberOfLines);

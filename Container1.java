@@ -333,7 +333,7 @@ public class Container1 extends JPanel
 
 				}
 
-				JPanel container2 = new Container2(jframe, newFormattedOutput, inputFile);
+				JPanel container2 = new Container2(jframe, newFormattedOutput, inputFile, doubleSpaced);
 				jframe.add(container2);
 				jframe.revalidate();
 				jframe.repaint();
@@ -403,6 +403,10 @@ public class Container1 extends JPanel
 
 			int chars = 0;
 			String holder = "";
+			
+			//replica
+			
+			
 
 			// iterate through words
 			for (int i = 0; i < words.size(); i++)
