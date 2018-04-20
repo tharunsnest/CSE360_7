@@ -11,7 +11,18 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-/*
+/* Notes (Kurgan Freedle) 4-20-18 @ 12:40pm:
+ * Updates: 
+ * 		 -blank lines now count towards "Total # of Lines"
+ * 		 -blank lines are now considered when finding "Average Words Per Line"
+ * TODO:
+ * 		 -Spaces should be included in the average line length, meaning that the 
+ * 		  "Average Line Length" should be equal to the user-specified length limit in all 
+ * 			cases EXCEPT when a word appears that is longer than that limit
+ * 
+ * 
+ * 
+ * 
  * Notes (A.J. England) 4-20-18 @ 1:00am:
  * 	Updates:
  * 		 -spacesAdded now works correctly for right justify
@@ -91,11 +102,6 @@ public class Container3 extends JPanel
 			
 			DecimalFormat df = new DecimalFormat(".##"); // df.format(<double>) returns the double with 2 decimal points (as a string)
 			
-			if(doubleSpaced) {
-				numberOfLines = (numberOfLines + 1) / 2;
-				
-				//spacesAdded = numberOfLines - 1;
-			}
 			
 			if (output.charAt(0) == ' ')
 				spacesAdded++;
