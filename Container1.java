@@ -15,6 +15,11 @@ import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /*
+ * Notes (A.J. England) 4-19-18 @ 9:50pm:
+ * 	Updates:
+ * 		 -Fixed division by zero error
+ * 
+ * 
  * Notes (Kurgan Freedle) 4-19-18 @ 5:46pm:
  *  Updates:
  *  	 -working implementation of line length
@@ -225,7 +230,7 @@ public class Container1 extends JPanel
 				boolean doubleSpaced = doubleSpacing.isSelected();
 				
 				jframe.getContentPane().removeAll();
-				String formattedOutput = parse(inputFile, fullJustify.isSelected(), doubleSpaced);
+				String formattedOutput = parse(inputFile, doubleSpaced);
 				String outputForAnalysis = formattedOutput;
 				String newFormattedOutput = "";
 				// writing output to file
@@ -254,12 +259,16 @@ public class Container1 extends JPanel
 								// this is used when more than one extra space needs to be added between words
 								// to justify correctly
 								int mult = 0; // how many non-space characters are on line i
-								for (int j = 0; j < words.length; j++)
-									mult += words[j].length();
-								mult = (whiteSpaceToAdd / (words.length - 1)) + 1;
-								System.out.print(whiteSpaceToAdd + " ");
+								if (words.length > 1)
+								{
+									for (int j = 0; j < words.length; j++)
+										mult += words[j].length();
+									mult = (whiteSpaceToAdd / (words.length - 1)) + 1;
+									// System.out.print(whiteSpaceToAdd + " ");
+								}
+
 								whiteSpaceToAdd = whiteSpaceToAdd - ((mult - 1) * (words.length - 1));
-								System.out.println(whiteSpaceToAdd + " " + words.length + " " + mult);
+								// System.out.println(whiteSpaceToAdd + " " + words.length + " " + mult);
 								// for each word j on lines[i]
 								for (int j = 0; j < words.length; j++)
 								{
@@ -293,7 +302,7 @@ public class Container1 extends JPanel
 							{
 								String holder = lines[i];
 								String modified = "";
-								System.out.println(i + " " + lines[i].length());
+								//System.out.println(i + " " + lines[i].length());
 								for (int j = lines[i].length(); j < lineLength; j++)
 								{
 									modified += " ";
@@ -356,7 +365,7 @@ public class Container1 extends JPanel
 		return jframe;
 	}
 
-	private String parse(File file, boolean fullJust, boolean doubleSpaced)
+	private String parse(File file, boolean doubleSpaced)
 	{
 
 		String line = null;
@@ -467,7 +476,7 @@ public class Container1 extends JPanel
 			System.out.println("Error reading file.");
 		}
 
-		System.out.println(formattedOutput);
+		//System.out.println(formattedOutput);
 		if (formattedOutput.charAt(formattedOutput.length() - 2) == ' ')
 			formattedOutput = formattedOutput.substring(0, formattedOutput.length() - 2);
 		return formattedOutput;

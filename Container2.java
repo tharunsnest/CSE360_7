@@ -7,6 +7,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
+/*
+ * Notes (A.J. England) 4-19-18 @ 10:15pm
+ * 	Updates:
+ * 		 -Container2 now simply creates a Container3. crude but effective
+ */
+
+
+
 @SuppressWarnings({ "serial", "unused" })
 public class Container2 extends JPanel
 {
@@ -15,7 +23,7 @@ public class Container2 extends JPanel
 
 	public Container2(JFrame jframe, String formattedOutput, File inputFile)
 	{
-		this.jframe = jframe;
+		/*this.jframe = jframe;
 
 		JLabel output = new JLabel("Output: ");
 		JTextPane outputField = new JTextPane();
@@ -40,19 +48,19 @@ public class Container2 extends JPanel
 
 			@Override
 			public void actionPerformed(ActionEvent e)
-			{
+			{*/
 				jframe.getContentPane().removeAll();
 				JPanel container3 = new Container3(formattedOutput, inputFile);
 				jframe.add(container3);
 				jframe.revalidate();
 				jframe.repaint();
-			}
+				/*}
 		});
 
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		this.add(output);
 		this.add(scroll);
-		this.add(buttons);
+		this.add(buttons);*/
 
 	}
 
