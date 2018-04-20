@@ -12,6 +12,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /*
+ * Notes (A.J. England) 4-20-18 @ 1:00am:
+ * 	Updates:
+ * 		 -spacesAdded now works correctly for right justify
+ * 
+ * 
  * Notes (A.J. England) 4-19-18 @ 11:55pm:
  * 	Updates:
  * 		 -averageWordsPerLine now has a decimal, not integer division
@@ -43,7 +48,7 @@ public class Container3 extends JPanel
 		int wordsProcessed = 0;
 		int numberOfLines = 0;
 		int blankLinesRemoved = 0;
-		int spacesAdded = 0;//############################################
+		int spacesAdded = 0;
 		double wordsPerLine = 0;
 		double lineLength = 0;
 
@@ -89,11 +94,11 @@ public class Container3 extends JPanel
 			if(doubleSpaced) {
 				numberOfLines = (numberOfLines + 1) / 2;
 				
-				//spacesAdded = numberOfLines - 1;//############################################
+				//spacesAdded = numberOfLines - 1;
 			}
 			for (int i = 1; i < output.length(); i++)
 			{
-				if (output.charAt(i) == ' ' && output.charAt(i-1) == ' ')
+				if (output.charAt(i) == ' ' && (output.charAt(i-1) == ' ' || output.charAt(i-1) == '\n'))
 					spacesAdded++;
 			}
 			
@@ -102,7 +107,7 @@ public class Container3 extends JPanel
 			JLabel blankLinesRemovedLabel = new JLabel("Blank Lines Removed: " + blankLinesRemoved);
 			JLabel wordsPerLineLabel = new JLabel("Average Words Per Line: " + df.format(wordsPerLine));
 			JLabel lineLengthLabel = new JLabel("Average Line Length: " + df.format(lineLength) + " characters");
-			JLabel spacesAddedLabel = new JLabel("Spaces Added: " + spacesAdded); //############################################
+			JLabel spacesAddedLabel = new JLabel("Spaces Added: " + spacesAdded);
 
 			//JButton outputB = new JButton("Output");
 			JButton restartB = new JButton("Restart");
