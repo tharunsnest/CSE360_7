@@ -468,8 +468,11 @@ public class Container1 extends JPanel
 					}
 					else if (chars < lineLength)
 					{
-						holder += words.get(i) + " ";
-						chars += 1;
+						if (words.get(i).length() > 0)
+						{
+							holder += words.get(i) + " ";
+							chars += 1;
+						}
 					}
 				}
 
