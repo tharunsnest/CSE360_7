@@ -73,7 +73,7 @@ public class Container3 extends JPanel
 			wordsPerLine = wordsProcessed / numberOfLines;
 
 			String output2 = output;//.trim();
-			System.out.println(output2.substring(output2.length() - 1));
+			//System.out.println(output2.substring(output2.length() - 1));
 			if (output2.substring(output2.length() - 1) == System.lineSeparator())
 				output2 = output2.substring(0, output2.length() - 1);
 			lineLength = ((double)output2.length() - (2 * (numberOfLines - 1))) / numberOfLines;
