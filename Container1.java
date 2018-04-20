@@ -15,6 +15,18 @@ import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /*
+ * Notes (Kurgan Freedle) 4-19-18 @ 5:26pm:
+ *  Updates:
+ *  	 -removed variables that held layouts for no apparent reason
+ *  	 -added double spacing GUI elements
+ *  	 -added line length option
+ *  	 -added error handling for the following:
+ *  			-no input file selected
+ *  			-no output file selected
+ *  			-line length input is blank, or isn't a number
+ * 
+ * 
+ * 
  * Notes (A.J. England) 4-18-18 @ 8pm:
  *  Updates:
  *  	 -all the justify methods should be completely functional now
@@ -50,19 +62,20 @@ public class Container1 extends JPanel
 	File inputFile;
 	File outputFile;
 	JFrame jframe;
+	Boolean doubleSpaced;
 
 	public Container1(JFrame jframe)
 	{
 		lineLength = 80;
 		this.jframe = jframe;
-		// input section
+		
+		//Input section
 		JPanel input = new JPanel();
-		FlowLayout inputLayout = new FlowLayout();
-		input.setLayout(inputLayout);
-
+		input.setLayout(new FlowLayout());
 		JLabel label1 = new JLabel("Input: ");
 		JTextField fileName = new JTextField("", 20);
 		fileName.setEditable(false);
+		
 		JButton chooseFile = new JButton("...");
 		chooseFile.addActionListener(new ActionListener()
 		{
@@ -87,10 +100,9 @@ public class Container1 extends JPanel
 		input.add(fileName);
 		input.add(chooseFile);
 
-		// output section
+		//Output section
 		JPanel output = new JPanel();
-		FlowLayout outputLayout = new FlowLayout();
-		output.setLayout(outputLayout);
+		output.setLayout(new FlowLayout());
 
 		JLabel label2 = new JLabel("Output: ");
 		JTextField outputFileName = new JTextField("", 20);
@@ -122,7 +134,7 @@ public class Container1 extends JPanel
 
 		// justify section
 		JPanel justify = new JPanel();
-		justify.setLayout(outputLayout);
+		justify.setLayout(new FlowLayout());
 
 		JLabel label3 = new JLabel("Justify: ");
 		JRadioButton leftJustify = new JRadioButton("Left");
@@ -138,6 +150,32 @@ public class Container1 extends JPanel
 		justify.add(rightJustify);
 		justify.add(fullJustify);
 
+		//double space section
+		JPanel spacingChoice = new JPanel();
+		spacingChoice.setLayout(new FlowLayout());
+		
+		JLabel label4 = new JLabel("Spacing: ");
+		JRadioButton singleSpacing = new JRadioButton("Single");
+		JRadioButton doubleSpacing = new JRadioButton("Double");
+		ButtonGroup spacing = new ButtonGroup();
+		spacing.add(singleSpacing);
+		spacing.add(doubleSpacing);
+		
+		spacingChoice.add(label4);
+		spacingChoice.add(singleSpacing);
+		spacingChoice.add(doubleSpacing);
+		
+		//line length section
+		JPanel lineLengthChoice = new JPanel();
+		lineLengthChoice.setLayout(new FlowLayout());
+		
+		JLabel label5 = new JLabel("Line length: ");
+		JTextField length = new JTextField("", 20);
+		length.setEditable(true);
+		
+		lineLengthChoice.add(label5);
+		lineLengthChoice.add(length);
+		
 		// Okay button
 		JButton okay = new JButton("Okay");
 		okay.addActionListener(new ActionListener()
@@ -146,6 +184,27 @@ public class Container1 extends JPanel
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
+				//Error checks
+				
+				if (fileName.getText().equals(""))
+				{
+					JOptionPane.showMessageDialog(null, "Please select a valid input file.");
+					return;
+				}
+				
+				if (outputFileName.getText().equals(""))
+				{
+					JOptionPane.showMessageDialog(null, "Please select a valid output file.");
+					return;
+				}
+				
+				String lineLengthString = length.getText();
+				if (!lineLengthString.matches("\\d+"))
+				{
+					JOptionPane.showMessageDialog(null, "Please input an integer for the 'line length' option.");
+					return;
+				}
+				
 				// if (inputFile.length() != 0 && outputFile.length() != 0 &&
 				// bG.getSelection() != null) {
 				jframe.getContentPane().removeAll();
@@ -268,6 +327,8 @@ public class Container1 extends JPanel
 		this.add(input);
 		this.add(output);
 		this.add(justify);
+		this.add(spacingChoice);
+		this.add(lineLengthChoice);
 		this.add(okay);
 	}
 
