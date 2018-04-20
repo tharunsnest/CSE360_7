@@ -96,6 +96,9 @@ public class Container3 extends JPanel
 				
 				//spacesAdded = numberOfLines - 1;
 			}
+			
+			if (output.charAt(0) == ' ')
+				spacesAdded++;
 			for (int i = 1; i < output.length(); i++)
 			{
 				if (output.charAt(i) == ' ' && (output.charAt(i-1) == ' ' || output.charAt(i-1) == '\n'))
