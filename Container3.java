@@ -113,7 +113,7 @@ public class Container3 extends JPanel
 				spacesAdded++;
 			for (int i = 1; i < output.length(); i++)
 			{
-				if (output.charAt(i) == ' ' && (output.charAt(i-1) == ' ' || output.charAt(i-1) == '\n'))
+				if (output.charAt(i) == ' ')
 					spacesAdded++;
 			}
 			
