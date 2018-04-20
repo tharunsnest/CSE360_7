@@ -14,7 +14,10 @@ import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-/*
+/* Notes (Kurgan Freedle) 4-19-18 @ 10:39 pm:
+ *	Updates:
+ *		-Fixed triple spacing error when full justify was selected
+ *
  * Notes (A.J. England) 4-19-18 @ 9:50pm:
  * 	Updates:
  * 		 -Fixed division by zero error
@@ -288,9 +291,6 @@ public class Container1 extends JPanel
 
 								}
 								formattedOutput += "\n";
-								if (doubleSpaced) {
-									formattedOutput += "\n";
-								}
 							}
 						}
 
