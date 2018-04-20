@@ -15,6 +15,17 @@ import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /*
+ * Notes (Kurgan Freedle) 4-19-18 @ 5:46pm:
+ *  Updates:
+ *  	 -working implementation of line length
+ *  	 -working implementation of double spacing
+ *  TODO:
+ *  	-recurring error (division by zero) at line 257: DUE TO cases where there is only one word on a line. Fixing in a few minutes
+ *  	-add analysis of blank lines added
+ *  	-stop output screen from showing
+ * 
+ * 
+ * 
  * Notes (Kurgan Freedle) 4-19-18 @ 5:26pm:
  *  Updates:
  *  	 -removed variables that held layouts for no apparent reason
@@ -185,30 +196,36 @@ public class Container1 extends JPanel
 			public void actionPerformed(ActionEvent e)
 			{
 				//Error checks
-				
+				//check no input file
 				if (fileName.getText().equals(""))
 				{
 					JOptionPane.showMessageDialog(null, "Please select a valid input file.");
 					return;
 				}
 				
+				//check no output file
 				if (outputFileName.getText().equals(""))
 				{
 					JOptionPane.showMessageDialog(null, "Please select a valid output file.");
 					return;
 				}
 				
+				//check for non-integer line length
 				String lineLengthString = length.getText();
+				lineLength = Integer.parseInt(lineLengthString);
 				if (!lineLengthString.matches("\\d+"))
 				{
 					JOptionPane.showMessageDialog(null, "Please input an integer for the 'line length' option.");
 					return;
 				}
+				//store line length
+				lineLength = Integer.parseInt(lineLengthString);
 				
-				// if (inputFile.length() != 0 && outputFile.length() != 0 &&
-				// bG.getSelection() != null) {
+				//stores whether the output should be double spaced or not
+				boolean doubleSpaced = doubleSpacing.isSelected();
+				
 				jframe.getContentPane().removeAll();
-				String formattedOutput = parse(inputFile, fullJustify.isSelected());
+				String formattedOutput = parse(inputFile, fullJustify.isSelected(), doubleSpaced);
 				String outputForAnalysis = formattedOutput;
 				String newFormattedOutput = "";
 				// writing output to file
@@ -262,20 +279,12 @@ public class Container1 extends JPanel
 
 								}
 								formattedOutput += "\n";
+								if (doubleSpaced) {
+									formattedOutput += "\n";
+								}
 							}
 						}
 
-						// old fullJustify formatter, new one is above
-						/*
-						 * if (fullJustify.isSelected()) { formattedOutput = ""; for (int i = 0; i <
-						 * lines.length; i++) { int whiteSpaceToAdd = lineLength - lines[i].length();
-						 * String[] words = lines[i].split(" "); int whiteSpaceAdded = 0; for (int j =
-						 * 0; j < words.length; j++) { formattedOutput += words[j] + " "; if
-						 * (whiteSpaceAdded < whiteSpaceToAdd) { formattedOutput += " ";
-						 * whiteSpaceAdded++; } } formattedOutput += "\n"; }
-						 * 
-						 * }
-						 */
 
 						if (rightJustify.isSelected())
 						{
@@ -347,7 +356,7 @@ public class Container1 extends JPanel
 		return jframe;
 	}
 
-	private String parse(File file, boolean fullJust)
+	private String parse(File file, boolean fullJust, boolean doubleSpaced)
 	{
 
 		String line = null;
@@ -393,6 +402,8 @@ public class Container1 extends JPanel
 				if (chars == 0 && words.get(i).length() >= lineLength)
 				{
 					formattedOutput += words.get(i) + "\n";
+					if (doubleSpaced)
+						formattedOutput += "\n";
 				}
 				else
 				{
@@ -405,6 +416,8 @@ public class Container1 extends JPanel
 							chars -= words.get(i).length();
 							holder = holder.substring(0, holder.length() - 1);
 							holder += "\n";
+							if (doubleSpaced)
+								holder += "\n";
 
 							formattedOutput += holder;
 							
@@ -416,12 +429,18 @@ public class Container1 extends JPanel
 						{
 							holder += words.get(i);
 							holder += "\n";
+							if (doubleSpaced)
+								holder += "\n";
 							formattedOutput += holder;
 							holder = "";
 							chars = 0;
 						}
 						if (formattedOutput.charAt(formattedOutput.length() - 2) == ' ')
+						{
 							formattedOutput = formattedOutput.substring(0, formattedOutput.length() - 2) + "\n";
+							if (doubleSpaced)
+								holder += "\n";
+						}
 					}
 					else if (chars < lineLength)
 					{
