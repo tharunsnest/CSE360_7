@@ -12,6 +12,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /*
+ * Notes (A.J. England) 4-19-18 @ 10:15pm:
+ * 	Updates:
+ * 		 -removed "Output" button as there is no longer an output window
+ * 	TODO 
+ * 		 -make "Restart" button do something (or remove it)
+ * 
  * Notes (A.J. England) 4-18-18 @ 8pm"
  * 	Updates:
  * 		 -fixed the linelength calculation to not count newline characters
@@ -79,11 +85,11 @@ public class Container3 extends JPanel
 			JLabel wordsPerLineLabel = new JLabel("Average Words Per Line: " + wordsPerLine);
 			JLabel lineLengthLabel = new JLabel("Average Line Length: " + df.format(lineLength) + " characters");
 
-			JButton outputB = new JButton("Output");
+			//JButton outputB = new JButton("Output");
 			JButton restartB = new JButton("Restart");
 			JPanel buttons = new JPanel();
 			buttons.setLayout(new FlowLayout());
-			buttons.add(outputB);
+			//buttons.add(outputB);
 			buttons.add(restartB);
 
 			this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
