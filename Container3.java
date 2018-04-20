@@ -31,6 +31,7 @@ public class Container3 extends JPanel
 		int wordsProcessed = 0;
 		int numberOfLines = 0;
 		int blankLinesRemoved = 0;
+		int blankLinesAdded = 0;
 		double wordsPerLine = 0;
 		double lineLength = 0;
 
@@ -78,13 +79,14 @@ public class Container3 extends JPanel
 			JLabel blankLinesRemovedLabel = new JLabel("Blank Lines Removed: " + blankLinesRemoved);
 			JLabel wordsPerLineLabel = new JLabel("Average Words Per Line: " + wordsPerLine);
 			JLabel lineLengthLabel = new JLabel("Average Line Length: " + df.format(lineLength) + " characters");
+			JLabel blankLinesAddedLabel = new JLabel("Blank Lines Added: " + blankLinesAdded);
 
-			JButton outputB = new JButton("Output");
-			JButton restartB = new JButton("Restart");
-			JPanel buttons = new JPanel();
-			buttons.setLayout(new FlowLayout());
-			buttons.add(outputB);
-			buttons.add(restartB);
+//			JButton outputB = new JButton("Output");
+//			JButton restartB = new JButton("Restart");
+//			JPanel buttons = new JPanel();
+//			buttons.setLayout(new FlowLayout());
+//			buttons.add(outputB);
+//			buttons.add(restartB);
 
 			this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 			this.add(wordsProcessedLabel);
@@ -92,7 +94,8 @@ public class Container3 extends JPanel
 			this.add(blankLinesRemovedLabel);
 			this.add(wordsPerLineLabel);
 			this.add(lineLengthLabel);
-			this.add(buttons);
+			this.add(blankLinesAddedLabel);
+//			this.add(buttons);
 
 		}
 		catch (FileNotFoundException ex)
