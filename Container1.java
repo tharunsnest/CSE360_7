@@ -14,7 +14,16 @@ import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-/* Notes (Kurgan Freedle) 4-19-18 @ 10:39 pm:
+/* 
+ * Notes (A.J. England) 4-20-18 @ 12:05am:
+ * 	Updates:
+ * 		 -set defaults for:
+ * 			-justify -----> left
+ * 			-spacing -----> single
+ * 			-line length -> 80
+ * 
+ * 
+ * Notes (Kurgan Freedle) 4-19-18 @ 10:39 pm:
  *	Updates:
  *		-Fixed triple spacing error when full justify was selected
  *
@@ -159,6 +168,7 @@ public class Container1 extends JPanel
 		JRadioButton leftJustify = new JRadioButton("Left");
 		JRadioButton fullJustify = new JRadioButton("Full");
 		JRadioButton rightJustify = new JRadioButton("Right");
+		leftJustify.setSelected(true);
 		ButtonGroup bG = new ButtonGroup();
 		bG.add(leftJustify);
 		bG.add(fullJustify);
@@ -176,6 +186,7 @@ public class Container1 extends JPanel
 		JLabel label4 = new JLabel("Spacing: ");
 		JRadioButton singleSpacing = new JRadioButton("Single");
 		JRadioButton doubleSpacing = new JRadioButton("Double");
+		singleSpacing.setSelected(true);
 		ButtonGroup spacing = new ButtonGroup();
 		spacing.add(singleSpacing);
 		spacing.add(doubleSpacing);
@@ -189,7 +200,7 @@ public class Container1 extends JPanel
 		lineLengthChoice.setLayout(new FlowLayout());
 		
 		JLabel label5 = new JLabel("Line length: ");
-		JTextField length = new JTextField("", 20);
+		JTextField length = new JTextField("80", 20);
 		length.setEditable(true);
 		
 		lineLengthChoice.add(label5);
