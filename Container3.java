@@ -12,6 +12,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /*
+ * Notes (A.J. England) 4-19-18 @ 11:55pm:
+ * 	Updates:
+ * 		 -averageWordsPerLine now has a decimal, not integer division
+ * 		 	-and the display is formatted to two decimal places 
+ * 		 -added spacesAdded statistic
+ * 
  * Notes (A.J. England) 4-19-18 @ 10:15pm:
  * 	Updates:
  * 		 -removed "Output" button as there is no longer an output window
@@ -37,7 +43,7 @@ public class Container3 extends JPanel
 		int wordsProcessed = 0;
 		int numberOfLines = 0;
 		int blankLinesRemoved = 0;
-		int blankLinesAdded = 0;
+		int spacesAdded = 0;//############################################
 		double wordsPerLine = 0;
 		double lineLength = 0;
 
@@ -70,7 +76,7 @@ public class Container3 extends JPanel
 			String[] lines = output.split("\r\n|\r|\n");
 			numberOfLines = lines.length;
 
-			wordsPerLine = wordsProcessed / numberOfLines;
+			wordsPerLine = ((double)wordsProcessed) / numberOfLines;
 
 			String output2 = output;//.trim();
 			//System.out.println(output2.substring(output2.length() - 1));
@@ -82,15 +88,21 @@ public class Container3 extends JPanel
 			
 			if(doubleSpaced) {
 				numberOfLines = (numberOfLines + 1) / 2;
-				blankLinesAdded = numberOfLines - 1;
+				
+				//spacesAdded = numberOfLines - 1;//############################################
+			}
+			for (int i = 1; i < output.length(); i++)
+			{
+				if (output.charAt(i) == ' ' && output.charAt(i-1) == ' ')
+					spacesAdded++;
 			}
 			
 			JLabel wordsProcessedLabel = new JLabel("Words Processed: " + wordsProcessed);
 			JLabel numberOfLinesLabel = new JLabel("Number of Lines: " + numberOfLines);
 			JLabel blankLinesRemovedLabel = new JLabel("Blank Lines Removed: " + blankLinesRemoved);
-			JLabel wordsPerLineLabel = new JLabel("Average Words Per Line: " + wordsPerLine);
+			JLabel wordsPerLineLabel = new JLabel("Average Words Per Line: " + df.format(wordsPerLine));
 			JLabel lineLengthLabel = new JLabel("Average Line Length: " + df.format(lineLength) + " characters");
-			JLabel blankLinesAddedLabel = new JLabel("Blank Lines Added: " + blankLinesAdded);
+			JLabel spacesAddedLabel = new JLabel("Spaces Added: " + spacesAdded); //############################################
 
 			//JButton outputB = new JButton("Output");
 			JButton restartB = new JButton("Restart");
@@ -105,7 +117,7 @@ public class Container3 extends JPanel
 			this.add(blankLinesRemovedLabel);
 			this.add(wordsPerLineLabel);
 			this.add(lineLengthLabel);
-			this.add(blankLinesAddedLabel);
+			this.add(spacesAddedLabel);
 //			this.add(buttons);
 
 		}
