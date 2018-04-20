@@ -98,7 +98,13 @@ public class Container3 extends JPanel
 			//System.out.println(output2.substring(output2.length() - 1));
 			if (output2.substring(output2.length() - 1) == System.lineSeparator())
 				output2 = output2.substring(0, output2.length() - 1);
-			lineLength = ((double)output2.length() - (2 * (numberOfLines - 1))) / numberOfLines;
+			
+			
+			//lineLength = ((double)output2.length() - (2 * (numberOfLines - 1))) / numberOfLines;
+			for (int i = 0; i < lines.length; i++)
+				lineLength += lines[i].length();
+			lineLength = lineLength / numberOfLines;
+			
 			
 			DecimalFormat df = new DecimalFormat(".##"); // df.format(<double>) returns the double with 2 decimal points (as a string)
 			
